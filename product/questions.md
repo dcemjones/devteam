@@ -16,11 +16,6 @@
 **Agent's working assumption if unanswered:** ≤50 URLs per batch, low tens of batches per month.
 **Your answer:** _(write here)_
 
-### Q-003 · [03-definition/product-manager] · 2026-06-10
-**Question:** Is no-login acceptable for v1, given how/where this will be deployed?
-**Why it matters:** v1 has no auth (NFR-4); it must not end up as a public unauthenticated service processing your campaign URLs.
-**Agent's working assumption if unanswered:** Yes — deployed reachable only by the internal team (internal network or unguessable URL).
-**Your answer:** _(write here)_
 
 ### Q-004 · [03-definition/product-manager] · 2026-06-10
 **Question:** Is a 15-minute maximum post length acceptable for v1? (YouTube posts can be long-form.)
@@ -38,4 +33,9 @@
 
 ## Resolved
 
-_None yet._
+### Q-003 · [03-definition/product-manager] · 2026-06-10
+**Question:** Is no-login acceptable for v1, given how/where this will be deployed?
+**Why it matters:** v1 has no auth (NFR-4); it must not end up as a public unauthenticated service processing your campaign URLs.
+**Agent's working assumption if unanswered:** Yes — deployed reachable only by the internal team (internal network or unguessable URL).
+**Answer (2026-06-10, gate Q&A):** Yes — no-auth is fine; deploy behind an unguessable URL / internal network.
+
