@@ -23,6 +23,12 @@
 **Agent's working assumption if unanswered:** 15-minute cap stands for v1.
 **Your answer:** _(write here)_
 
+### Q-005 · [06-plan/delivery-planner] · 2026-06-10
+**Question:** Please provide 15 real public post URLs for the fetch spike — 5 each from Instagram, TikTok, and YouTube, by influencers in your actual markets.
+**Why it matters:** The day-1 fetch spike (and launch-blocking check LB-01 if the build sandbox can't reach the platforms) needs real URLs to prove fetching works at the ADR-001 thresholds before launch. Using your real influencers' posts also makes the accuracy check meaningful.
+**Agent's working assumption if unanswered:** Build proceeds on fixture media; LB-01 (spike executed by you at release) becomes launch-blocking.
+**Your answer:** _(write here)_
+
 <!-- Question format (use sequential ids Q-001, Q-002, …):
 ### Q-XXX · [stage/agent] · YYYY-MM-DD
 **Question:** ...
