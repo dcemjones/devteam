@@ -16,7 +16,7 @@
 | 1 | Discovery ⛔ | discovery-researcher | ✅ collapsed into Definition (fast-track) | — |
 | 2 | Strategy ⛔ | product-strategist | ✅ collapsed into Definition (fast-track) | — |
 | 3 | Definition ⛔ | product-manager | ✅ gate-approved | `03-definition/prd.md` |
-| 4 | Experience | ux-designer | 🔄 in progress | `04-design/experience-spec.md` |
+| 4 | Experience | ux-designer | ✅ done | `04-design/experience-spec.md` |
 | 5 | Architecture ⛔ | solution-architect | 🔄 in progress | `05-architecture/architecture.md` |
 | 6 | Delivery plan | delivery-planner | ⬜ not started | `06-plan/delivery-plan.md` |
 | 7 | Build | implementation-engineer | ⬜ not started | `07-build/build-log.md` + `/src` |
