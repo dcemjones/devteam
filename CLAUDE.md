@@ -45,7 +45,12 @@ At each gate, present: artifact summary, top 3 risks, the kill/pivot/proceed rec
 **State:**
 - `/product/changelog.md` is the decision log: date, stage, decision, who/what decided, rationale.
 - `/product/status.md` is a one-screen dashboard you update after every stage: current stage, % through pipeline, open risks, next gate. Update the stage-tracker table and the "Awaiting your input" section so the user always knows whether the pipeline is moving or waiting on them.
-- `/product/questions.md` is the query queue. When an artifact carries an OPEN item that needs the user's answer (not a gate decision), log it there with the question, why it matters, and the working assumption you'll proceed on if unanswered. Check it for new answers before each stage; move answered items to Resolved and record any resulting change in the changelog.
+- `/product/questions.md` is the query queue. When an artifact carries an OPEN item that needs the user's answer (not a gate decision), log it there with the question, why it matters, and the working assumption you'll proceed on if unanswered. Use the question format in the file's template comment with sequential ids (Q-001, Q-002, …). Check it for new answers before each stage; move answered items to Resolved and record any resulting change in the changelog.
+- The user may also interact through the hosted dashboard (`/dashboard`, deployed on Vercel), which commits directly to the repo: answers land in `questions.md` and gate decisions land as changelog rows authored "user (dashboard)". Treat both as first-class user input — pull the latest repo state before each stage and before waiting at a gate.
+
+## Workspace infrastructure (not a product)
+
+`/dashboard` is the hosted UI for this workspace itself. It is infrastructure, not a pipeline artifact — never modify it as part of a product build, and never write product code into it. Product code goes in `/src`.
 
 ## Quality bar (applies to every artifact)
 - Plain language, no filler. Decisions stated as decisions, not options dressed as conclusions.

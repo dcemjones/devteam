@@ -6,8 +6,8 @@
 
 _No open questions._
 
-<!-- Question format:
-### Q-001 · [stage/agent] · 2026-06-10
+<!-- Question format (use sequential ids Q-001, Q-002, …):
+### Q-XXX · [stage/agent] · YYYY-MM-DD
 **Question:** ...
 **Why it matters:** ...
 **Agent's working assumption if unanswered:** ...

@@ -24,6 +24,12 @@ You can also invoke any agent directly, e.g. *"Use the qa-engineer subagent to a
 | **See outputs** | `product/00-intake/` … `product/10-retro/` — one folder per stage, plus working code in `src/` |
 | **Review decisions** | [`product/changelog.md`](product/changelog.md) — every gate decision and artifact revision, with rationale |
 
+## Hosted dashboard (Vercel)
+
+[`dashboard/`](dashboard/) is a Next.js app that puts all of the above in the browser: a live stage tracker, an artifact reader, a form to answer open agent questions, and a form to record gate decisions — answers and decisions are committed straight back to this repo, where the orchestrator picks them up. It reads repo state via the GitHub API on every request, so it always reflects the latest push without redeploying.
+
+Deploy: import this repo in Vercel, set **Root Directory** to `dashboard`, and add a `GITHUB_TOKEN` (plus optionally `DASHBOARD_PASSWORD`). Full instructions in [dashboard/README.md](dashboard/README.md).
+
 ## Your role: the five gates
 
 The pipeline pauses for your decision (proceed / revise / kill) at five gates:
