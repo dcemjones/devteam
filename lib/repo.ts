@@ -20,8 +20,7 @@ function headers(raw = false): Record<string, string> {
 }
 
 function localPath(repoPath: string) {
-  // dashboard/ lives one level below the repo root
-  return path.resolve(process.cwd(), '..', repoPath);
+  return path.resolve(process.cwd(), repoPath);
 }
 
 export async function getFile(repoPath: string): Promise<string | null> {

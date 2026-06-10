@@ -26,9 +26,37 @@ You can also invoke any agent directly, e.g. *"Use the qa-engineer subagent to a
 
 ## Hosted dashboard (Vercel)
 
-[`dashboard/`](dashboard/) is a Next.js app that puts all of the above in the browser: a live stage tracker, an artifact reader, a form to answer open agent questions, and a form to record gate decisions — answers and decisions are committed straight back to this repo, where the orchestrator picks them up. It reads repo state via the GitHub API on every request, so it always reflects the latest push without redeploying.
+The Next.js app at the repo root puts all of the above in the browser:
 
-Deploy: import this repo in Vercel, set **Root Directory** to `dashboard`, and add a `GITHUB_TOKEN` (plus optionally `DASHBOARD_PASSWORD`). Full instructions in [dashboard/README.md](dashboard/README.md).
+- **Status** (`/`) — live stage tracker parsed from `product/status.md`, with a progress bar and a form to record gate decisions (proceed / revise / kill) straight into `product/changelog.md`.
+- **Artifacts** (`/artifacts`) — browse and read every markdown artifact the agents produce under `/product`.
+- **Questions** (`/questions`) — open agent queries from `product/questions.md`, with a form to answer each one; answers are committed back, where the orchestrator picks them up.
+
+It reads repo state **live via the GitHub API on every request**, so it always reflects the latest push without redeploying. Answers and gate decisions are written back as commits.
+
+### Deploy
+
+1. In Vercel: **Add New → Project**, import this repo. It auto-detects as Next.js at the root — no settings to change.
+2. Make sure the **Production Branch** (Project → Settings → Git) matches the branch the pipeline lives on.
+3. Add environment variables:
+
+| Variable | Required | Notes |
+|---|---|---|
+| `GITHUB_TOKEN` | yes | Fine-grained PAT with **Contents: Read and write** on this repo. Needed to read a private repo and to commit answers/decisions. |
+| `GITHUB_REPO` | no | Defaults to `dcemjones/devteam`. |
+| `GITHUB_BRANCH` | no | Defaults to `main`. Point at another branch if the pipeline lives there. |
+| `DASHBOARD_PASSWORD` | recommended | If set, the answer/gate forms require this key (entered once in the browser). Without it, anyone who can reach the URL can write to your repo. |
+
+4. Deploy. Consider enabling Vercel **Deployment Protection** if the whole dashboard should be private, not just writes.
+
+### Local development
+
+```bash
+npm install
+npm run dev
+```
+
+Locally (without `GITHUB_TOKEN`) the app reads and writes the working tree directly.
 
 ## Your role: the five gates
 
