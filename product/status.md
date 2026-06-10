@@ -2,20 +2,20 @@
 
 > One-screen dashboard. The orchestrator updates this after every stage.
 
-**Product:** _none yet — kick off with `/build-product <your request>`_
-**Mode:** —
-**Current stage:** 0 of 10 (idle)
-**Progress:** `[----------]` 0%
-**Next gate:** —
+**Product:** Influencer Transcript Translator — paste/bulk-upload post URLs (IG/TikTok/YouTube) → English transcript of the audio
+**Mode:** Fast-track (appetite ≤ 1 week; stages 1–3 collapsed into one PRD pass)
+**Current stage:** 3 of 10 — Definition (⛔ awaiting your gate decision)
+**Progress:** `[###-------]` ~30%
+**Next gate:** ⛔ Definition — PRD approval (NOW — waiting on you)
 
 ## Stage tracker
 
 | # | Stage | Agent | Status | Artifact |
 |---|-------|-------|--------|----------|
-| 0 | Intake | orchestrator | ⬜ not started | `00-intake/request-brief.md` |
-| 1 | Discovery ⛔ | discovery-researcher | ⬜ not started | `01-discovery/discovery-brief.md` |
-| 2 | Strategy ⛔ | product-strategist | ⬜ not started | `02-strategy/opportunity-assessment.md` |
-| 3 | Definition ⛔ | product-manager | ⬜ not started | `03-definition/prd.md` |
+| 0 | Intake | orchestrator | ✅ done | `00-intake/request-brief.md` |
+| 1 | Discovery ⛔ | discovery-researcher | ✅ collapsed into Definition (fast-track) | — |
+| 2 | Strategy ⛔ | product-strategist | ✅ collapsed into Definition (fast-track) | — |
+| 3 | Definition ⛔ | product-manager | ⛔ awaiting gate decision | `03-definition/prd.md` |
 | 4 | Experience | ux-designer | ⬜ not started | `04-design/experience-spec.md` |
 | 5 | Architecture ⛔ | solution-architect | ⬜ not started | `05-architecture/architecture.md` |
 | 6 | Delivery plan | delivery-planner | ⬜ not started | `06-plan/delivery-plan.md` |
@@ -28,8 +28,11 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (
 
 ## Open risks
 
-_None logged yet._
+1. Fetching media from IG/TikTok/YouTube by URL is the riskiest assumption (ToS, rate limits, breakage) — architecture must address.
+2. Translation accuracy must be good enough for compliance judgement — needs a QA bar.
+3. Appetite is 1 week — scope cuts happen on paper at the PRD stage, not during build.
 
 ## Awaiting your input
 
-_Nothing right now. Gate decisions and open questions appear here._
+1. **⛔ Definition gate** — approve/revise/kill the PRD at `03-definition/prd.md`.
+2. Four open questions in `questions.md` (Q-001…Q-004): priority languages, batch volume, no-auth OK?, 15-min post cap.
