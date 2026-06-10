@@ -4,9 +4,9 @@
 
 **Product:** Influencer Transcript Translator — paste/bulk-upload post URLs (IG/TikTok/YouTube) → English transcript of the audio
 **Mode:** Fast-track (appetite ≤ 1 week; stages 1–3 collapsed into one PRD pass)
-**Current stage:** 4–5 of 10 — Experience + Architecture (running in parallel)
-**Progress:** `[###-------]` ~30%
-**Next gate:** ⛔ Architecture
+**Current stage:** 5 of 10 — Architecture (⛔ awaiting your gate decision)
+**Progress:** `[#####-----]` ~50%
+**Next gate:** ⛔ Architecture (NOW — waiting on you)
 
 ## Stage tracker
 
@@ -17,7 +17,7 @@
 | 2 | Strategy ⛔ | product-strategist | ✅ collapsed into Definition (fast-track) | — |
 | 3 | Definition ⛔ | product-manager | ✅ gate-approved | `03-definition/prd.md` |
 | 4 | Experience | ux-designer | ✅ done | `04-design/experience-spec.md` |
-| 5 | Architecture ⛔ | solution-architect | 🔄 in progress | `05-architecture/architecture.md` |
+| 5 | Architecture ⛔ | solution-architect | ⛔ awaiting gate decision | `05-architecture/architecture.md` |
 | 6 | Delivery plan | delivery-planner | ⬜ not started | `06-plan/delivery-plan.md` |
 | 7 | Build | implementation-engineer | ⬜ not started | `07-build/build-log.md` + `/src` |
 | 8 | Quality ⛔ | qa-engineer | ⬜ not started | `08-quality/test-report.md` |
