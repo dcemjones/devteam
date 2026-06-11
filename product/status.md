@@ -4,9 +4,9 @@
 
 **Product:** Influencer Transcript Translator — paste/bulk-upload post URLs (IG/TikTok/YouTube) → English transcript of the audio
 **Mode:** Fast-track (appetite ≤ 1 week; stages 1–3 collapsed into one PRD pass)
-**Current stage:** 9 of 10 — Release (⛔ awaiting your gate decision)
-**Progress:** `[#########-]` ~90%
-**Next gate:** ⛔ Release (NOW — waiting on you)
+**Current stage:** 10 of 10 — Launch execution (yours) + retro pending
+**Progress:** `[#########-]` ~95%
+**Next gate:** none — all gates passed
 
 ## Stage tracker
 
@@ -21,8 +21,8 @@
 | 6 | Delivery plan | delivery-planner | ✅ done | `06-plan/delivery-plan.md` |
 | 7 | Build | implementation-engineer | ✅ done | `07-build/build-log.md` + `/src` |
 | 8 | Quality ⛔ | qa-engineer | ✅ gate-approved (GO w/ known issues) | `08-quality/test-report.md` |
-| 9 | Release ⛔ | release-manager | ⛔ awaiting gate decision | `09-release/launch-plan.md` |
-| 10 | Retro | retro-analyst | ⬜ not started | `10-retro/retrospective.md` |
+| 9 | Release ⛔ | release-manager | ✅ gate-approved 2026-06-11 | `09-release/launch-plan.md` |
+| 10 | Retro | retro-analyst | 📅 scheduled ~2026-07-02 (or 50 submissions) | `10-retro/retrospective.md` |
 
 Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (see open questions) · ⛔ awaiting gate decision · ❌ killed
 
@@ -34,5 +34,6 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (
 
 ## Awaiting your input
 
-1. **⛔ Release gate** — approve the launch plan at `09-release/launch-plan.md`. Q-005 (spike URLs) and Q-001 (languages) are needed to execute Phase 0.
+1. **Q-005** — provide ~15 real spike URLs (launch-blocking for Phase 0).
+2. **Q-001** — confirm target languages (gates the NFR-3 accuracy rating set).
 2. Open questions in `questions.md`: Q-001 priority languages, Q-002 batch volume, Q-004 15-min cap, **Q-005 spike URLs (15 real post URLs — needed before launch)**.

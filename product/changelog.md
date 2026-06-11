@@ -4,6 +4,7 @@
 
 | Date | Stage | Decision | Decided by | Rationale |
 |------|-------|----------|------------|-----------|
+| 2026-06-11 | 9 Release | ⛔ Gate decision: PROCEED — launch plan approved as written | user (chat) | Phased rollout accepted; Phase 0 blocked only on Q-005 (spike URLs) and Q-001 (languages) |
 | 2026-06-11 | 9 Release | Launch plan drafted: 3-phase rollout, Phase 0 = LB-02→NFR-4→LB-01→NFR-3 in cheapest-fail-first order; rollback trivial (stateless); retro ~2026-07-02 | release-manager | Awaiting Release gate |
 | 2026-06-11 | 8 Quality | GO-with-known-issues ACCEPTED — user is named accepter for LB-01 (live spike), LB-02 (Docker verify), NFR-3 (accuracy rating), NFR-4 (reachability), RK-4 (restart loss) | user (gate) | 0 Blocker/Major; all five items are pre-launch checklist commitments |
 | 2026-06-11 | 8 Quality | QA verdict: GO-with-known-issues — 118/118 tests pass, 0 Blocker/Major, 3 Minor, 2 Trivial; SSRF held vs 22 probes; acceptance of LB-01/LB-02/NFR-3/NFR-4/RK-4 required | qa-engineer | All offline-verifiable criteria pass; live items sandbox-bound, deferred to launch checklist |

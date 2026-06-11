@@ -1,6 +1,6 @@
 # Launch Plan — Influencer Transcript Translator (v1)
 
-**Status:** Draft — awaiting Release gate
+**Status:** Gate-approved (Release gate, 2026-06-11)
 **Date:** 2026-06-11
 **Owner of this launch:** the requester (you) — this plan is written so you can run it without an engineer at your elbow.
 **Inputs:** `/product/08-quality/test-report.md` (verdict GO-with-known-issues, all five items accepted by you on 2026-06-11), `/src/README.md` (launch checklist + LB-01 runbook), `/product/03-definition/prd.md`, `/product/05-architecture/architecture.md` + ADR-001/ADR-003, `/product/changelog.md`, `/product/questions.md`.
