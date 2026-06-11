@@ -4,9 +4,9 @@
 
 **Product:** Influencer Transcript Translator — paste/bulk-upload post URLs (IG/TikTok/YouTube) → English transcript of the audio
 **Mode:** Fast-track (appetite ≤ 1 week; stages 1–3 collapsed into one PRD pass)
-**Current stage:** 9 of 10 — Release planning (in progress)
-**Progress:** `[########--]` ~85%
-**Next gate:** ⛔ Release
+**Current stage:** 9 of 10 — Release (⛔ awaiting your gate decision)
+**Progress:** `[#########-]` ~90%
+**Next gate:** ⛔ Release (NOW — waiting on you)
 
 ## Stage tracker
 
@@ -21,7 +21,7 @@
 | 6 | Delivery plan | delivery-planner | ✅ done | `06-plan/delivery-plan.md` |
 | 7 | Build | implementation-engineer | ✅ done | `07-build/build-log.md` + `/src` |
 | 8 | Quality ⛔ | qa-engineer | ✅ gate-approved (GO w/ known issues) | `08-quality/test-report.md` |
-| 9 | Release ⛔ | release-manager | 🔄 in progress | `09-release/launch-plan.md` |
+| 9 | Release ⛔ | release-manager | ⛔ awaiting gate decision | `09-release/launch-plan.md` |
 | 10 | Retro | retro-analyst | ⬜ not started | `10-retro/retrospective.md` |
 
 Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (see open questions) · ⛔ awaiting gate decision · ❌ killed
@@ -34,5 +34,5 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (
 
 ## Awaiting your input
 
-1. Nothing gate-blocking — release plan being drafted. Next gate: ⛔ Release.
+1. **⛔ Release gate** — approve the launch plan at `09-release/launch-plan.md`. Q-005 (spike URLs) and Q-001 (languages) are needed to execute Phase 0.
 2. Open questions in `questions.md`: Q-001 priority languages, Q-002 batch volume, Q-004 15-min cap, **Q-005 spike URLs (15 real post URLs — needed before launch)**.
