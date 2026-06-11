@@ -93,3 +93,30 @@ Tests  105 passed (105)
 **NOT verified (LB-01):** NFR-2's real 30-minute wall-clock for 50 posts (fixture mode proves the pool drains; real timing needs live fetch/whisper).
 
 **NFR mapping:** NFR-2 (cap + pool), NFR-5 (backpressure), ST-02 all four scenarios traced in test names.
+
+---
+
+## M4 — Copy + CSV + polish + deploy hardening (T-401, T-402, T-403, T-404)
+
+**Built:**
+- **T-401 copy:** tests for the M1-shipped button — clipboard receives the transcript, label swaps to "Copied" for ~2 s then back, live region announces "Transcript copied", and the FULL text is copied even when the card is collapsed (`tests/ui.actions.test.tsx`).
+- **T-402 CSV export (new code):** `lib/csv.ts` (RFC-4180 quoting + formula-prefix guard for `= + - @ TAB`, applied to every cell) and `GET /api/batches/:id/export.csv` (`Content-Disposition: attachment`, 404 with the resubmit message). Columns exactly `url,platform,status,detected_language,transcript,error`; failed rows carry `code: message` in `error`. Unit tests (`csv.test.ts`) + route tests through the fixture pipeline (`export.test.ts`). **Decision within scope:** the route serves the batch's *current* state rather than refusing before settle — the UI button stays disabled until settled per spec ("Available when the batch finishes"), and a mid-flight CSV is truthful (`processing` status). Live-smoked against `next start` in mock mode: correct headers, quoted transcript cell, populated failed row.
+- **T-403 a11y/readability:** mostly shipped in M1 (labels, `aria-describedby`, visible `:focus-visible` outline, text-not-colour statuses, collapse behind "Show full transcript", noindex header). M4 adds the keyboard tests: Ctrl+Enter and Cmd+Enter submit from the textarea, bare Enter does not. Tab order is DOM order = spec §7 order (input → submit → export → per-card link/actions).
+- **T-404 deploy hardening:** `Dockerfile` (multi-stage node:22-slim, ffmpeg via apt, `yt-dlp_linux` standalone binary — pinnable via `--build-arg YTDLP_VERSION`, defaults to latest with the pin-after-LB-01 path documented; standalone Next output; non-root `USER node`; healthcheck on `/api/health`), `.dockerignore`, and `src/README.md` covering run/test/deploy, the single-instance constraint, env knobs, ops notes, **the launch checklist: LB-01 spike runbook (non-engineer-executable, thresholds from ADR-001), LB-02 first real docker build, NFR-3 ten-post accuracy materials, NFR-4 reachability check, RK-7 taxonomy recalibration**. Env validation at boot shipped in M1 (`config.validateEnv` + `ensureBooted` throws in production).
+
+**Deviations recorded:**
+- **Docker build NOT verified** — no Docker daemon in this sandbox (DoD #7 unmet, by environment). Promoted to launch-blocking item **LB-02** in the README checklist; everything else verified via `next build` + `next start` smoke.
+- yt-dlp version not pinned to a literal tag in the Dockerfile (sandbox cannot resolve the current release); the pin mechanism exists (`YTDLP_VERSION` build arg) and pinning is folded into LB-01/LB-02.
+
+**Test results (M4, final):**
+```
+Test Files  15 passed (15)
+Tests  118 passed (118)
+```
+`tsc --noEmit` clean. `next build` succeeds (export.csv route present). Live smoke (mock mode, `next start`): batch with 1 success + 1 private failure → CSV with exact header, quoted transcript, `failed` row populated, `X-Robots-Tag` present.
+
+**NOT verified — consolidated LB list for QA/release:** LB-01 (live fetch, live whisper-1, `verbose_json.language` on `/translations` (RK-6), real stderr taxonomy (RK-7), NFR-1/NFR-2 wall-clock); LB-02 (docker build + container boot); NFR-3 accuracy (user task); NFR-4 reachability (deploy task).
+
+**Self-review vs DoD (M2–M4):** criteria 1–6, 8 met; criterion 7 split into LB-02 as above. ST-01..ST-04 Gherkin scenarios each have at least one named test; microcopy asserted verbatim where the spec fixes it.
+
+**For QA (stage 8):** run everything with `npm test` in `/src` (offline). The QA handoff table in delivery-plan §8 maps 1:1 onto test files: M2 rows → `validation/taxonomy/retry/providers.real/sweeper` suites; M3 rows → `pool/batch/ui.batch`; M4 rows → `csv/export/ui.actions`. The 4-way-concurrency observation is asserted live in `tests/batch.test.ts`. Restart-loses-batch is *by design* — verify the 404 resubmit message, not absence of loss.
