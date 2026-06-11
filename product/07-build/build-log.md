@@ -44,3 +44,30 @@ Tests  34 passed (34)
 **NFR mapping:** NFR-4 (noindex header; no-auth by design), NFR-6 (JSON logs verified in smoke), NFR-7 (purge verified by test + smoke), NFR-9 (costUsd verified by test + smoke).
 
 **Self-review vs DoD:** criteria 1–5, 8 met for M1 tickets; criterion 7 (docker build) deferred to M4/T-404 — no Docker daemon in this sandbox, will be recorded honestly.
+
+---
+
+## M2 — Three platforms + failure states (T-201, T-202, T-203, T-204)
+
+*Resumed after an interruption: two in-progress untracked files (the retry route and the adversarial validation test suite) were reviewed, found complete and consistent with the M1 conventions, and folded in unchanged.*
+
+**Built / completed:**
+- **T-201:** validation logic shipped in M1 (`lib/validation.ts`); this milestone lands the adversarial security test suite (`lib/__tests__/validation.test.ts`): userinfo smuggling, lookalike/suffix domains, IP literals incl. decimal/hex encodings and IPv6, scheme games (`javascript:`, `file:`), open-redirect endpoints on allowlisted hosts, explicit ports, garbage input — every rejection asserted to carry the exact ST-01 message. The file also pins the T-301 batch logic (cap/all-or-nothing/dedupe) since it lives in the same module; T-301 is claimed in M3.
+- **T-202:** taxonomy mapping tests (`taxonomy.test.ts`) pin documented yt-dlp error strings → codes, including ordering (429 before login-wall) and the `unknown` default (RK-7). Real-provider boundary tests (`providers.real.test.ts`): RealFetcher with mocked spawn — two-phase invocation, `--`-before-URL argv hygiene (threat #2), >15-min rejection *before* download with exact duration, stderr mapping on both phases, timeout, exit-0-but-no-file; RealTranscriber with mocked fetch — form fields, bearer key, 429/5xx in-step retries with backoff, non-retryable 4xx fails fast, 120 s abort, missing-key fail-fast; ffmpeg re-encode safety net (threshold pass-through, mono-48k re-encode, original removed).
+- **T-203:** retry endpoint `POST /api/batches/:id/items/:itemId/retry` (202 + `fromStep` / 409 not-failed / 404 with the resubmit message). Tests prove the QA log check directly: a TRANSCRIBE failure retries with `fetchAttempts === 1` (FETCH never repeated); artifact purged → transparent restart from FETCH; sweeper tests cover the 60-min failed-audio window (time injected), 24 h TTL eviction, and orphan-dir removal that never touches live retained audio.
+- **T-204:** logic + UI shipped in M1; acceptance now covered by tests — no-speech → completed (pipeline.test), English label + failed-card variants with exact microcopy (ui.smoke.test), in-step provider retries (providers.real.test). All five fetch-failure variants verified end-to-end through the fixture pipeline across all three platforms (retry.test).
+
+**Decisions within scope:** none beyond M1's recorded ones. No new deviations.
+
+**Test results (M2):**
+```
+Test Files  9 passed (9)
+Tests  92 passed (92)
+```
+`tsc --noEmit` clean. `next build` succeeds.
+
+**NOT verified (carried to LB-01):** real yt-dlp stderr (taxonomy calibrated from documented strings — RK-7), live fetch/transcription, NFR-1 wall-clock.
+
+**NFR mapping:** NFR-6 (raw stderr to logs only — asserted by API-leak test), NFR-7 (retention window + sweeper tested), threat #1/#2 (adversarial suite + argv tests).
+
+**For QA:** the retry-never-refetches proof is `lib/__tests__/retry.test.ts` ("retries WITHOUT refetching"); the SSRF surface is wholly in `lib/validation.ts` — any change there must re-run the adversarial suite.

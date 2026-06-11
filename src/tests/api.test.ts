@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { setupMockEnv, waitForSettled, FIX } from "./helpers";
 import { POST as postBatches } from "@/app/api/batches/route";
 import { GET as getBatchRoute } from "@/app/api/batches/[id]/route";
+import { POST as postRetry } from "@/app/api/batches/[id]/items/[itemId]/retry/route";
 import { GET as getHealth } from "@/app/api/health/route";
 
 function postReq(body: unknown): Request {
@@ -104,6 +105,48 @@ describe("GET /api/batches/:id", () => {
     expect(item.transcript).toBeTruthy();
     expect(item.detectedLanguage).toBeTruthy();
     expect(item.costUsd).toBeGreaterThan(0);
+  });
+});
+
+describe("POST /api/batches/:id/items/:itemId/retry (T-203)", () => {
+  const retryParams = (id: string, itemId: string) => ({
+    params: Promise.resolve({ id, itemId }),
+  });
+  const req = () => new Request("http://localhost", { method: "POST" });
+
+  it("202 re-enqueues a failed item from the failed step (ST-04 transient failure)", async () => {
+    const created = await (await postBatches(postReq({ urls: [FIX.sttflaky] }))).json();
+    await waitForSettled(created.batchId);
+
+    const res = await postRetry(req(), retryParams(created.batchId, created.items[0].id));
+    expect(res.status).toBe(202);
+    const body = await res.json();
+    expect(body.status).toBe("queued");
+    expect(body.fromStep).toBe("TRANSCRIBE_TRANSLATE"); // resumed, not restarted
+
+    await waitForSettled(created.batchId);
+    const after = await (
+      await getBatchRoute(new Request("http://localhost"), params(created.batchId))
+    ).json();
+    expect(after.items[0].status).toBe("done");
+  });
+
+  it("409 when the item is not failed", async () => {
+    const created = await (await postBatches(postReq({ urls: [FIX.ok(11)] }))).json();
+    await waitForSettled(created.batchId);
+    const res = await postRetry(req(), retryParams(created.batchId, created.items[0].id));
+    expect(res.status).toBe(409);
+  });
+
+  it("404 for unknown batch (resubmit message) and unknown item", async () => {
+    const gone = await postRetry(req(), retryParams("nope", "nope"));
+    expect(gone.status).toBe(404);
+    expect((await gone.json()).error).toBe("This batch is no longer available — please resubmit");
+
+    const created = await (await postBatches(postReq({ urls: [FIX.ok(12)] }))).json();
+    await waitForSettled(created.batchId);
+    const badItem = await postRetry(req(), retryParams(created.batchId, "not-an-item"));
+    expect(badItem.status).toBe(404);
   });
 });
 
