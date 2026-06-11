@@ -36,4 +36,4 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (
 
 1. **Q-005** — provide ~15 real spike URLs (launch-blocking for Phase 0).
 2. **Q-001** — confirm target languages (gates the NFR-3 accuracy rating set).
-2. Open questions in `questions.md`: Q-001 priority languages, Q-002 batch volume, Q-004 15-min cap, **Q-005 spike URLs (15 real post URLs — needed before launch)**.
+3. Other open questions in `questions.md`: Q-002 batch volume, Q-004 15-min cap.
