@@ -4,9 +4,9 @@
 
 **Product:** Influencer Transcript Translator — paste/bulk-upload post URLs (IG/TikTok/YouTube) → English transcript of the audio
 **Mode:** Fast-track (appetite ≤ 1 week; stages 1–3 collapsed into one PRD pass)
-**Current stage:** 8 of 10 — Quality (⛔ awaiting your GO/NO-GO)
-**Progress:** `[#######---]` ~75%
-**Next gate:** ⛔ Quality (after build)
+**Current stage:** 9 of 10 — Release planning (in progress)
+**Progress:** `[########--]` ~85%
+**Next gate:** ⛔ Release
 
 ## Stage tracker
 
@@ -20,8 +20,8 @@
 | 5 | Architecture ⛔ | solution-architect | ✅ gate-approved | `05-architecture/architecture.md` |
 | 6 | Delivery plan | delivery-planner | ✅ done | `06-plan/delivery-plan.md` |
 | 7 | Build | implementation-engineer | ✅ done | `07-build/build-log.md` + `/src` |
-| 8 | Quality ⛔ | qa-engineer | ⛔ awaiting gate decision | `08-quality/test-report.md` |
-| 9 | Release ⛔ | release-manager | ⬜ not started | `09-release/launch-plan.md` |
+| 8 | Quality ⛔ | qa-engineer | ✅ gate-approved (GO w/ known issues) | `08-quality/test-report.md` |
+| 9 | Release ⛔ | release-manager | 🔄 in progress | `09-release/launch-plan.md` |
 | 10 | Retro | retro-analyst | ⬜ not started | `10-retro/retrospective.md` |
 
 Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (see open questions) · ⛔ awaiting gate decision · ❌ killed
@@ -34,5 +34,5 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · 🚧 blocked (
 
 ## Awaiting your input
 
-1. **⛔ Quality gate** — QA recommends GO-with-known-issues; five named items need your explicit acceptance (see `08-quality/test-report.md`).
+1. Nothing gate-blocking — release plan being drafted. Next gate: ⛔ Release.
 2. Open questions in `questions.md`: Q-001 priority languages, Q-002 batch volume, Q-004 15-min cap, **Q-005 spike URLs (15 real post URLs — needed before launch)**.
