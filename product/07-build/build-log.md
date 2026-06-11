@@ -71,3 +71,25 @@ Tests  92 passed (92)
 **NFR mapping:** NFR-6 (raw stderr to logs only — asserted by API-leak test), NFR-7 (retention window + sweeper tested), threat #1/#2 (adversarial suite + argv tests).
 
 **For QA:** the retry-never-refetches proof is `lib/__tests__/retry.test.ts` ("retries WITHOUT refetching"); the SSRF surface is wholly in `lib/validation.ts` — any change there must re-run the adversarial suite.
+
+---
+
+## M3 — Batch + summary + dedupe (T-301, T-302, T-303)
+
+**Built / completed:** all three tickets' logic shipped in M1 (validation, pool, batch UI) — M3 lands their acceptance tests, which found one real bug class during writing (single-use `Response` bodies in test mocks; no production code affected).
+- **T-301:** cap/all-or-nothing/dedupe tests in `validation.test.ts` (M2 file) + API-level dedupe/cap tests (M1 file) + client-side UI tests in `tests/ui.batch.test.tsx`: "51 of 50" counter + exact cap message + blocked submit + preserved input; per-line errors with preserved input and `aria-describedby`; "duplicate removed" on the surviving card. Dedupe is by *normalised* URL (youtu.be ≡ watch?v= ≡ m.youtube + tracking params stripped), tested.
+- **T-302:** `pool.test.ts` — concurrency cap (max in-flight exactly 4, never above), fair round-robin (a 1-URL batch is not starved behind a queued 50-URL batch), throwing tasks dropped without wedging. `tests/batch.test.ts` — live `pool.inFlight ≤ 4` asserted throughout a real 10-item run; 4th simultaneous batch → 429 "Server busy — try again in a few minutes" and capacity frees after settle.
+- **T-303:** `tests/batch.test.ts` — 10-URL batch with 2 failures: 8 succeed untouched (no-speech counted as completed), cards in input order; 50-item fixture batch settles fully (machinery/budget check — wall-clock NFR-2 itself is an LB-01 item). `tests/ui.batch.test.tsx` — summary bar "Processing 1 of 2 — 1 failed so far" → "1 of 2 succeeded", Export CSV disabled with "Available when the batch finishes" until settled, collapsed input panel, destructive new-batch confirm with the exact microcopy (Cancel preserves, confirm clears), live-region completion announcement.
+
+**Deviations:** none.
+
+**Test results (M3):**
+```
+Test Files  12 passed (12)
+Tests  105 passed (105)
+```
+`tsc --noEmit` clean. `next build` succeeds.
+
+**NOT verified (LB-01):** NFR-2's real 30-minute wall-clock for 50 posts (fixture mode proves the pool drains; real timing needs live fetch/whisper).
+
+**NFR mapping:** NFR-2 (cap + pool), NFR-5 (backpressure), ST-02 all four scenarios traced in test names.
